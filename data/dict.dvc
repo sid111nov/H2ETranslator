@@ -1,0 +1,6 @@
+outs:
+- md5: 63263b846e85969f08ef08818f6ab258.dir
+  size: 585982
+  nfiles: 2
+  hash: md5
+  path: dict
