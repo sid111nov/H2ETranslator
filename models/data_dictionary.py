@@ -1,5 +1,5 @@
 import os
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 
 import tensorflow
 import json
@@ -50,11 +50,6 @@ with open(os.path.join(dict_folder,"target_dict.txt"),'w', encoding='utf-8') as 
 
 
 
-max_scent_len = 0
-for filename in ['source_test.txt','source_train.txt','source_valid.txt','target_test.txt','target_train.txt','target_valid.txt']:
-    with open(os.path.join(txt_folder,filename),'r',encoding='utf-8') as f:
-        for line in f:
-            if(len(line)>max_scent_len):
-                max_scent_len = len(line)
+
 
 
