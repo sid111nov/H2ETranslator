@@ -52,10 +52,12 @@ valid_tgt_seq=[]
 test_src_seq=[]
 test_tgt_seq=[]
 
+#getting padded sequences
 def get_padded_array(seq,maxlength):
     sequence_padded = pad_sequences(seq, maxlen=maxlength, padding='pre') 
     return np.array(sequence_padded)
 
+#converting words to numerical tokens
 def get_tokenized_seq(filename,dictionary,lengthf):
     seq=[]
     with open(os.path.join(txt_folder,filename), 'r',encoding='utf-8') as f:
@@ -71,7 +73,7 @@ test_src_seq= get_tokenized_seq("source_test.txt",source_dictionary,max_length)
 test_tgt_seq= get_tokenized_seq("target_test.txt",target_dictionary,max_length)
 
 
-
+#early stopping criteria definition
 
 early_stopping = EarlyStopping(
     monitor='val_loss',  
@@ -80,6 +82,7 @@ early_stopping = EarlyStopping(
     restore_best_weights=True  
 )
 
+#pulling data in chunks of lines instead of extracting all scentences
 def get_training_chunks():
     with open(os.path.join(txt_folder,"source_train.txt"),'r', encoding='utf-8') as f1,  \
         open(os.path.join(txt_folder,"target_train.txt"),'r', encoding='utf-8')    as f2:
@@ -92,6 +95,7 @@ def get_training_chunks():
                             break
             yield src_chunk, tgt_chunk
 
+#model training
 for  src_chunk,  tgt_chunk in    get_training_chunks():  
     if (model.stop_training):
          print("training stopped")
@@ -99,10 +103,11 @@ for  src_chunk,  tgt_chunk in    get_training_chunks():
     model.fit(src_chunk, tgt_chunk, batch_size=10,verbose=1 ,\
             callbacks=[early_stopping], epochs=10, validation_data=(valid_src_seq, valid_tgt_seq))
 
-
+#evaluating the model
 test_loss, test_acc = model.evaluate(test_src_seq, test_tgt_seq)
 print(f"Test Accuracy: {test_acc}")
 
+#saving th emodel
 model.save(os.path.join(artifact_folder, "translator_model.h5"))
 
 

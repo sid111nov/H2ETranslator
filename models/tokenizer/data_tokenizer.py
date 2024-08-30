@@ -6,6 +6,10 @@ current_dir = os.getcwd()
 dict_folder = os.path.join(current_dir,r"data\\dict")
 txt_folder = os.path.join(current_dir,r"data\\txt")
 
+# ##
+# trying to create new dictionaries to extract new and better dictionary for English to Hindi translations
+# this part is still in experimentation phase
+# ##
 
 print(txt_folder)
 

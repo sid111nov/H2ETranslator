@@ -4,8 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import json
 import numpy as np
-# from datasets import load_dataset
-# dataset = load_dataset("cfilt/iitb-english-hindi")
+
 
 class data_tokenization:
 
@@ -24,48 +23,9 @@ class data_tokenization:
         self.padded_folder = padded_folder
         
 
-        #rewriting the training files with shorter data
-        # file_path_source = os.path.join(txt_folder,"source_train.txt")
-        # file_path_target = os.path.join(txt_folder,"target_train.txt")
-
-        # if os.path.exists(file_path_source):
-        #     os.remove(file_path_source)
-
-        # if os.path.exists(file_path_target):
-        #     os.remove(file_path_target)
-
-        # source_train_file = open("./data/txt/source_train.txt", "w+", encoding='utf8')
-        # target_train_file = open("./data/txt/target_train.txt", "w+", encoding='utf8')
-        # line_count=0
-        # for translation_pair in dataset["train"]["translation"]:
-        #   source_sentence = translation_pair["en"]
-        #   target_sentence = translation_pair["hi"]
-        #   source_train_file.write(source_sentence.strip("\n") + "\n")
-        #   target_train_file.write(target_sentence.strip("\n") + "\n")
-        #   line_count += 1
-        #   if line_count>=8000:
-        #     break
-        # source_train_file.close()
-        # target_train_file.close()
-
-        #combining files again
-
-        # source_train_input = os.path.join(txt_folder,"source_train.txt")
-        # target_train_input = os.path.join(txt_folder,"target_train.txt")
-
-        # soruce_full_input = os.path.join(txt_folder,"source_full.txt")
-        # target_full_input = os.path.join(txt_folder,"target_full.txt")
-
-        # source_test_input = os.path.join(txt_folder,"source_test.txt")
-        # source_valid_input = os.path.join(txt_folder,"source_valid.txt")
-        # target_test_input = os.path.join(txt_folder,"target_test.txt")
-        # target_valid_input = os.path.join(txt_folder,"target_valid.txt")
-
-        # os.system(f'type {source_train_input} {source_valid_input} {source_test_input} > {soruce_full_input}')
-        # os.system(f'type {target_train_input} {target_valid_input} {target_test_input} > {target_full_input}')
-
-        #getting max sequence
         
+
+             
 
         #loading dictionaries
     def get_source_dict(self):
@@ -74,12 +34,14 @@ class data_tokenization:
             source_dict = json.load(f)
         return source_dict    
 
+    #get hindi dictionary
     def get_target_dict(self):
         target_dict = {}
         with open(os.path.join(self.dict_folder,"target_dict.txt"),'r',encoding='utf-8') as f:
             target_dict = json.load(f)
         return target_dict
-
+   
+    #get maximum possible length of scentence from a scentence list
     def max_length(self):
         max_scent_len = 0
         for filename in ['source_full.txt','target_full.txt']:
@@ -89,6 +51,7 @@ class data_tokenization:
                         max_scent_len = len(line)
         return  max_scent_len
 
+    #getting pre-padded array, can be post as well
     def get_padded_array(self,seq,maxlength):
         sequence_padded = pad_sequences(seq, maxlen=maxlength, padding='pre') 
         return np.array(sequence_padded)
