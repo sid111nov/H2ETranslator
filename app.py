@@ -6,12 +6,13 @@ import models.translation_prediction as tp
 from collections import Counter
 
 
-translator_model = tf.keras.models.load_model('./artifacts/translator_model.h5', compile=True)
-
 current_dir = os.getcwd()
 txt_folder = os.path.join(current_dir,"data","txt")
 dict_folder = os.path.join(current_dir,"data","dict")
     
+
+translator_model = tf.keras.models.load_model(os.path.join(current_dir,"artifacts","translator_model.h5"), compile=True)
+
 
 
 with open(os.path.join(dict_folder,"target_dict.txt"),'r',encoding='utf-8') as f:
