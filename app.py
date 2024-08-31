@@ -11,7 +11,7 @@ txt_folder = os.path.join(current_dir,"data","txt")
 dict_folder = os.path.join(current_dir,"data","dict")
     
 
-translator_model = tf.keras.models.load_model(os.path.join(current_dir,"artifacts","translator_model.h5"), compile=True)
+translator_model = tf.keras.models.load_model(os.path.join(current_dir,"artifacts","translator_model.h5"), compile=False)
 
 
 
