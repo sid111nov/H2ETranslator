@@ -7,8 +7,8 @@ from collections import Counter
 
 
 current_dir = os.getcwd()
-txt_folder = os.path.join(current_dir,r"data\\txt")
-dict_folder = os.path.join(current_dir,r"data\\dict")
+txt_folder = os.path.join(current_dir,"data","txt")
+dict_folder = os.path.join(current_dir,"data","dict")
     
 
 translator_model = tf.keras.models.load_model(os.path.join(current_dir,"artifacts","translator_model.h5"), compile=True)
