@@ -12,7 +12,9 @@ dict_folder = os.path.join(current_dir,r"data\\dict")
     
 
 translator_model = tf.keras.models.load_model(os.path.join(current_dir,"artifacts","translator_model.h5"), compile=True)
+translator_model.save(os.path.join(current_dir,"artifacts","translator_model_new.keras"))
 
+new_model = tf.keras.models.load_model(os.path.join(current_dir,"artifacts","translator_model_new.keras"), compile=False)
 
 
 with open(os.path.join(dict_folder,"target_dict.txt"),'r',encoding='utf-8') as f:
@@ -28,7 +30,7 @@ text_box = st.text_input("Enter English Scentence:")
 if st.button("Submit"):
     translator_pred = tp.translation_prediction([text_box])
     sequences = translator_pred.load_sequences()
-    output_array=translator_model.predict(sequences)
+    output_array=new_model.predict(sequences)
     print("output array",output_array)
     indices_hindi = np.argmax(output_array,axis=1)[0]
     print("indices hindi",indices_hindi)
